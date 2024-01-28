@@ -1,5 +1,6 @@
 {
   "name": "neonorderpage",
+  "homepage": "https://ledsgoneon.nl/orderpaneel",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

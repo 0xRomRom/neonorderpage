@@ -5,6 +5,7 @@ import { FiDownload } from "react-icons/fi";
 
 function App() {
   const [logoData, setLogoData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLogoData = async () => {
@@ -18,6 +19,7 @@ function App() {
         }
         console.log(data);
         setLogoData(data || []);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching logo data:", error.message);
       }
@@ -42,43 +44,56 @@ function App() {
       <h1 className={stl.ordersHero}>Orders</h1>
 
       <ul className={stl.orderList}>
-        {logoData
-          .sort((a, b) => a.id - b.id)
-          .map((logo, index) => (
-            <li key={index} className={stl.order}>
-              <span className={stl.dateSpan}>{logo.datum.slice(0, 10)}</span>
-              <h2 className={stl.orderIdTitle}>Order ID: {logo.id}</h2>
+        {loading && (
+          <div className={stl.ripple}>
+            <div></div>
+            <div></div>
+          </div>
+        )}
 
-              {renderRow("Naam", logo.naam)}
-              {renderRow("Email", logo.email)}
-              {renderRow("Beschrijving", logo.beschrijving)}
-              {renderRow("Achterplaat Type", logo.achterplaat_type)}
-              {renderRow("Achterplaat Vorm", logo.achterplaat_vorm)}
-              {renderRow("Kleur LED", logo.kleur_led)}
-              {renderRow("Soort LED", logo.soort_led)}
-              {renderRow("Langste zijde", logo.langste_zijde)}
-              {renderRow("Verhouding", logo.verhouding)}
-              {renderRow("Montage", logo.montage)}
-              {renderRow("Prijs schatting", logo.prijs_schatting)}
+        {!loading && (
+          <>
+            {logoData
+              .sort((a, b) => b.id - a.id)
+              .map((logo, index) => (
+                <li key={index} className={stl.order}>
+                  <span className={stl.dateSpan}>
+                    {logo.datum.slice(0, 10)}
+                  </span>
+                  <h2 className={stl.orderIdTitle}>Order ID: {logo.id}</h2>
 
-              <div className={stl.downloadRow}>
-                <img
-                  src={`data:${logo.file_format};base64,${logo.afbeelding64}`}
-                  className={stl.orderImg}
-                  alt={`Order ${logo.id} Image`}
-                />
+                  {renderRow("Naam", logo.naam)}
+                  {renderRow("Email", logo.email)}
+                  {renderRow("Beschrijving", logo.beschrijving)}
+                  {renderRow("Achterplaat Type", logo.achterplaat_type)}
+                  {renderRow("Achterplaat Vorm", logo.achterplaat_vorm)}
+                  {renderRow("Kleur LED", logo.kleur_led)}
+                  {renderRow("Soort LED", logo.soort_led)}
+                  {renderRow("Langste zijde", logo.langste_zijde)}
+                  {renderRow("Verhouding", logo.verhouding)}
+                  {renderRow("Montage", logo.montage)}
+                  {renderRow("Prijs schatting", logo.prijs_schatting)}
 
-                <button
-                  className={stl.dlBtn}
-                  onClick={() =>
-                    handleDownload(logo.file_format, logo.afbeelding64)
-                  }
-                >
-                  <FiDownload />
-                </button>
-              </div>
-            </li>
-          ))}
+                  <div className={stl.downloadRow}>
+                    <img
+                      src={`data:${logo.file_format};base64,${logo.afbeelding64}`}
+                      className={stl.orderImg}
+                      alt={`Order ${logo.id}`}
+                    />
+
+                    <button
+                      className={stl.dlBtn}
+                      onClick={() =>
+                        handleDownload(logo.file_format, logo.afbeelding64)
+                      }
+                    >
+                      <FiDownload />
+                    </button>
+                  </div>
+                </li>
+              ))}
+          </>
+        )}
       </ul>
     </div>
   );
