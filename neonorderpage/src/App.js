@@ -12,12 +12,14 @@ function App() {
       try {
         const { data, error } = await supabase
           .from("logo_samenstellen")
-          .select("*");
+          .select(
+            "id,datum,prijs_schatting,langste_zijde,soort_led,kleur_led,achterplaat_type,achterplaat_vorm,montage,naam,email,beschrijving,verhouding,file_format"
+          );
 
         if (error) {
           throw error;
         }
-        console.log(data);
+
         setLogoData(data || []);
         setLoading(false);
       } catch (error) {
@@ -28,8 +30,25 @@ function App() {
     fetchLogoData();
   }, []);
 
-  const handleDownload = (fileFormat, base64String) => {
-    const dataURL = `data:${fileFormat};base64,${base64String}`;
+  const handleDownload = async (fileFormat, id) => {
+    let imgString = "";
+
+    try {
+      const { data, error } = await supabase
+        .from("logo_samenstellen")
+        .select("afbeelding64")
+        .eq("id", id);
+
+      imgString = data[0].afbeelding64;
+
+      if (error) {
+        throw new Error(error);
+      }
+    } catch (error) {
+      console.error("Error fetching logo data:", error.message);
+    }
+
+    const dataURL = `data:${fileFormat};base64,${imgString}`;
 
     const a = document.createElement("a");
     a.href = dataURL;
@@ -75,17 +94,15 @@ function App() {
                   {renderRow("Prijs schatting", logo.prijs_schatting)}
 
                   <div className={stl.downloadRow}>
-                    <img
+                    {/* <img
                       src={`data:${logo.file_format};base64,${logo.afbeelding64}`}
                       className={stl.orderImg}
                       alt={`Order ${logo.id}`}
-                    />
+                    /> */}
 
                     <button
                       className={stl.dlBtn}
-                      onClick={() =>
-                        handleDownload(logo.file_format, logo.afbeelding64)
-                      }
+                      onClick={() => handleDownload(logo.file_format, logo.id)}
                     >
                       <FiDownload />
                     </button>
