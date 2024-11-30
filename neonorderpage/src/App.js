@@ -62,65 +62,60 @@ function App() {
     <div className={stl.app}>
       <h1 className={stl.ordersHero}>Orders</h1>
 
-      <ul className={stl.orderList}>
-        {loading && (
-          <div className={stl.ripple}>
-            <div></div>
-            <div></div>
-          </div>
-        )}
-
-        {!loading && (
-          <>
+      {loading ? (
+        <div className={stl.ripple}>
+          <div></div>
+          <div></div>
+        </div>
+      ) : (
+        <table className={stl.table}>
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Naam</th>
+              <th>Email</th>
+              <th>Beschrijving</th>
+              <th>Plaat Type</th>
+              <th>Plaat Shape</th>
+              <th>LED Color</th>
+              <th>LED Type</th>
+              <th>Langste Zijde</th>
+              <th>Ratio</th>
+              <th>Mounting</th>
+              <th>Prijs Schatting</th>
+              <th>Download</th>
+            </tr>
+          </thead>
+          <tbody>
             {logoData
               .sort((a, b) => b.id - a.id)
-              .map((logo, index) => (
-                <li key={index} className={stl.order}>
-                  <span className={stl.dateSpan}>
-                    {logo.datum.slice(0, 10)}
-                  </span>
-                  <h2 className={stl.orderIdTitle}>Order ID: {logo.id}</h2>
-
-                  {renderRow("Naam", logo.naam)}
-                  {renderRow("Email", logo.email)}
-                  {renderRow("Beschrijving", logo.beschrijving)}
-                  {renderRow("Achterplaat Type", logo.achterplaat_type)}
-                  {renderRow("Achterplaat Vorm", logo.achterplaat_vorm)}
-                  {renderRow("Kleur LED", logo.kleur_led)}
-                  {renderRow("Soort LED", logo.soort_led)}
-                  {renderRow("Langste zijde", logo.langste_zijde)}
-                  {renderRow("Verhouding", logo.verhouding)}
-                  {renderRow("Montage", logo.montage)}
-                  {renderRow("Prijs schatting", logo.prijs_schatting)}
-
-                  <div className={stl.downloadRow}>
-                    {/* <img
-                      src={`data:${logo.file_format};base64,${logo.afbeelding64}`}
-                      className={stl.orderImg}
-                      alt={`Order ${logo.id}`}
-                    /> */}
-
+              .map((logo) => (
+                <tr key={logo.id}>
+                  <td>{logo.datum.slice(0, 10)}</td>
+                  <td>{logo.naam}</td>
+                  <td>{logo.email}</td>
+                  <td>{logo.beschrijving}</td>
+                  <td>{logo.achterplaat_type}</td>
+                  <td>{logo.achterplaat_vorm}</td>
+                  <td>{logo.kleur_led}</td>
+                  <td>{logo.soort_led}</td>
+                  <td>{logo.langste_zijde}</td>
+                  <td>{logo.verhouding}</td>
+                  <td>{logo.montage}</td>
+                  <td>{logo.prijs_schatting}</td>
+                  <td>
                     <button
                       className={stl.dlBtn}
                       onClick={() => handleDownload(logo.file_format, logo.id)}
                     >
                       <FiDownload />
                     </button>
-                  </div>
-                </li>
+                  </td>
+                </tr>
               ))}
-          </>
-        )}
-      </ul>
-    </div>
-  );
-}
-
-function renderRow(label, value) {
-  return (
-    <div className={stl.row}>
-      <span className={stl.pre}>{label}</span>
-      <span className={stl.after}>{value}</span>
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
