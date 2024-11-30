@@ -113,13 +113,21 @@ function App() {
                       <td>{logo.datum.slice(0, 10)}</td>
                       <td>{logo.naam}</td>
                       <td>{logo.email}</td>
-                      <td>{logo.beschrijving || "Geen"}</td>
+                      <td className={!logo.beschrijving ? stl.gray : ""}>
+                        {logo.beschrijving || "Geen"}
+                      </td>
                       <td>{logo.achterplaat_type}</td>
                       <td>{logo.achterplaat_vorm}</td>
-                      <td>{logo.kleur_led}</td>
+                      <td
+                        className={logo.kleur_led === "N.v.t." ? stl.gray : ""}
+                      >
+                        {logo.kleur_led}
+                      </td>
                       <td>{logo.soort_led}</td>
                       <td>{logo.langste_zijde}</td>
-                      <td>{logo.verhouding || "Geen"}</td>
+                      <td className={!logo.verhouding ? stl.gray : ""}>
+                        {logo.verhouding || "Geen"}
+                      </td>
                       <td>{logo.montage}</td>
                       <td>{logo.prijs_schatting}</td>
                       <td>
