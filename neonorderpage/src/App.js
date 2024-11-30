@@ -5,7 +5,9 @@ import { FiDownload } from "react-icons/fi";
 
 function App() {
   const [logoData, setLogoData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [formLoading, setFormLoading] = useState(true);
+  const [configLoading, setConfigLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("Form");
 
   useEffect(() => {
     const fetchLogoData = async () => {
@@ -21,7 +23,7 @@ function App() {
         }
 
         setLogoData(data || []);
-        setLoading(false);
+        setFormLoading(false);
       } catch (error) {
         console.error("Error fetching logo data:", error.message);
       }
@@ -62,59 +64,140 @@ function App() {
     <div className={stl.app}>
       <h1 className={stl.ordersHero}>Orders</h1>
 
-      {loading ? (
-        <div className={stl.ripple}>
-          <div></div>
-          <div></div>
-        </div>
-      ) : (
-        <table className={stl.table}>
-          <thead>
-            <tr>
-              <th>Datum</th>
-              <th>Naam</th>
-              <th>Email</th>
-              <th>Beschrijving</th>
-              <th>Plaat Type</th>
-              <th>Plaat Shape</th>
-              <th>LED Color</th>
-              <th>LED Type</th>
-              <th>Langste Zijde</th>
-              <th>Ratio</th>
-              <th>Mounting</th>
-              <th>Prijs Schatting</th>
-              <th>Download</th>
-            </tr>
-          </thead>
-          <tbody>
-            {logoData
-              .sort((a, b) => b.id - a.id)
-              .map((logo) => (
-                <tr key={logo.id}>
-                  <td>{logo.datum.slice(0, 10)}</td>
-                  <td>{logo.naam}</td>
-                  <td>{logo.email}</td>
-                  <td>{logo.beschrijving}</td>
-                  <td>{logo.achterplaat_type}</td>
-                  <td>{logo.achterplaat_vorm}</td>
-                  <td>{logo.kleur_led}</td>
-                  <td>{logo.soort_led}</td>
-                  <td>{logo.langste_zijde}</td>
-                  <td>{logo.verhouding}</td>
-                  <td>{logo.montage}</td>
-                  <td>{logo.prijs_schatting}</td>
-                  <td>
-                    <button
-                      className={stl.dlBtn}
-                      onClick={() => handleDownload(logo.file_format, logo.id)}
-                    >
-                      <FiDownload />
-                    </button>
-                  </td>
+      <div className={stl.tabs}>
+        <button
+          className={activeTab === "Form" ? stl.activeCta : ""}
+          onClick={() => setActiveTab("Form")}
+        >
+          Bestel Formulier
+        </button>
+        <button
+          className={activeTab === "Config" ? stl.activeCta : ""}
+          onClick={() => setActiveTab("Config")}
+        >
+          Text Configurator
+        </button>
+      </div>
+
+      {activeTab === "Form" && (
+        <>
+          {formLoading ? (
+            <div className={stl.ripple}>
+              <div></div>
+              <div></div>
+            </div>
+          ) : (
+            <table className={stl.table}>
+              <thead>
+                <tr>
+                  <th>Datum</th>
+                  <th>Naam</th>
+                  <th>Email</th>
+                  <th>Beschrijving</th>
+                  <th>Plaat Type</th>
+                  <th>Plaat Shape</th>
+                  <th>LED Color</th>
+                  <th>LED Type</th>
+                  <th>Langste Zijde</th>
+                  <th>Ratio</th>
+                  <th>Mounting</th>
+                  <th>Prijs Schatting</th>
+                  <th>Download</th>
                 </tr>
-              ))}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {logoData
+                  .sort((a, b) => b.id - a.id)
+                  .map((logo) => (
+                    <tr key={logo.id}>
+                      <td>{logo.datum.slice(0, 10)}</td>
+                      <td>{logo.naam}</td>
+                      <td>{logo.email}</td>
+                      <td>{logo.beschrijving}</td>
+                      <td>{logo.achterplaat_type}</td>
+                      <td>{logo.achterplaat_vorm}</td>
+                      <td>{logo.kleur_led}</td>
+                      <td>{logo.soort_led}</td>
+                      <td>{logo.langste_zijde}</td>
+                      <td>{logo.verhouding}</td>
+                      <td>{logo.montage}</td>
+                      <td>{logo.prijs_schatting}</td>
+                      <td>
+                        <button
+                          className={stl.dlBtn}
+                          onClick={() =>
+                            handleDownload(logo.file_format, logo.id)
+                          }
+                        >
+                          <FiDownload />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
+        </>
+      )}
+      {activeTab === "Config" && (
+        <>
+          {configLoading ? (
+            <div className={stl.ripple}>
+              <div></div>
+              <div></div>
+            </div>
+          ) : (
+            <table className={stl.table}>
+              <thead>
+                <tr>
+                  <th>Datum</th>
+                  <th>Naam</th>
+                  <th>Email</th>
+                  <th>Beschrijving</th>
+                  <th>Plaat Type</th>
+                  <th>Plaat Shape</th>
+                  <th>LED Color</th>
+                  <th>LED Type</th>
+                  <th>Langste Zijde</th>
+                  <th>Ratio</th>
+                  <th>Mounting</th>
+                  <th>Prijs Schatting</th>
+                  <th>Download</th>
+                </tr>
+              </thead>
+              <tbody>
+                {logoData
+                  .sort((a, b) => b.id - a.id)
+                  .map((logo) => (
+                    <tr key={logo.id}>
+                      <td>{logo.datum.slice(0, 10)}</td>
+                      <td>{logo.naam}</td>
+                      <td>{logo.email}</td>
+                      <td>{logo.beschrijving}</td>
+                      <td>{logo.achterplaat_type}</td>
+                      <td>{logo.achterplaat_vorm}</td>
+                      <td>{logo.kleur_led}</td>
+                      <td>{logo.soort_led}</td>
+                      <td>{logo.langste_zijde}</td>
+                      <td>{logo.verhouding}</td>
+                      <td>{logo.montage}</td>
+                      <td>{logo.prijs_schatting}</td>
+                      <td>
+                        <button
+                          className={stl.dlBtn}
+                          onClick={() =>
+                            handleDownload(logo.file_format, logo.id)
+                          }
+                        >
+                          <FiDownload />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          )}
+        </>
       )}
     </div>
   );

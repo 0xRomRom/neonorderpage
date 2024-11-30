@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/orderpaneel/static/css/main.02dfe90b.css",
+    "main.js": "/orderpaneel/static/js/main.cbbd35c9.js",
+    "static/js/289.a871a240.chunk.js": "/orderpaneel/static/js/289.a871a240.chunk.js",
+    "index.html": "/orderpaneel/index.html",
+    "main.02dfe90b.css.map": "/orderpaneel/static/css/main.02dfe90b.css.map",
+    "main.cbbd35c9.js.map": "/orderpaneel/static/js/main.cbbd35c9.js.map",
+    "289.a871a240.chunk.js.map": "/orderpaneel/static/js/289.a871a240.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.02dfe90b.css",
+    "static/js/main.cbbd35c9.js"
+  ]
+}
