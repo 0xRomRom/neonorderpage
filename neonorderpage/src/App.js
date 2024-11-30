@@ -94,14 +94,14 @@ function App() {
                   <th>Naam</th>
                   <th>Email</th>
                   <th>Beschrijving</th>
-                  <th>Plaat Type</th>
-                  <th>Plaat Shape</th>
-                  <th>LED Color</th>
-                  <th>LED Type</th>
-                  <th>Langste Zijde</th>
-                  <th>Ratio</th>
-                  <th>Mounting</th>
-                  <th>Prijs Schatting</th>
+                  <th>Type</th>
+                  <th>Vorm</th>
+                  <th>LED</th>
+                  <th>Type</th>
+                  <th>Langste</th>
+                  <th>Verhouding</th>
+                  <th>Montage</th>
+                  <th>Schatting</th>
                   <th>Download</th>
                 </tr>
               </thead>
@@ -113,13 +113,13 @@ function App() {
                       <td>{logo.datum.slice(0, 10)}</td>
                       <td>{logo.naam}</td>
                       <td>{logo.email}</td>
-                      <td>{logo.beschrijving}</td>
+                      <td>{logo.beschrijving || "Geen"}</td>
                       <td>{logo.achterplaat_type}</td>
                       <td>{logo.achterplaat_vorm}</td>
                       <td>{logo.kleur_led}</td>
                       <td>{logo.soort_led}</td>
                       <td>{logo.langste_zijde}</td>
-                      <td>{logo.verhouding}</td>
+                      <td>{logo.verhouding || "Geen"}</td>
                       <td>{logo.montage}</td>
                       <td>{logo.prijs_schatting}</td>
                       <td>
