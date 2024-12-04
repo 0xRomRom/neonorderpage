@@ -5,6 +5,7 @@ import { FiDownload } from "react-icons/fi";
 
 function App() {
   const [logoData, setLogoData] = useState([]);
+  const [configData, setConfigData] = useState([]);
   const [formLoading, setFormLoading] = useState(true);
   const [configLoading, setConfigLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("Form");
@@ -31,6 +32,30 @@ function App() {
 
     fetchLogoData();
   }, []);
+
+  useEffect(() => {
+    if (activeTab === "Config" && configData.length === 0) {
+      const fetchConfigData = async () => {
+        try {
+          const { data, error } = await supabase
+            .from("textconfigurator")
+            .select(
+              "id,datum,text,lettertype,kleur,lengte,achterpaneel_kleur,achterpaneel_vorm,montage_methode,opmerkingen,prijs"
+            );
+
+          if (error) {
+            throw error;
+          }
+          console.log(data);
+          setConfigData(data || []);
+        } catch (error) {
+          console.error("Error fetching logo data:", error.message);
+        }
+      };
+
+      fetchConfigData();
+    }
+  }, [activeTab]);
 
   const handleDownload = async (fileFormat, id) => {
     let imgString = "";
