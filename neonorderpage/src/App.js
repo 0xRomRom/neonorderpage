@@ -48,6 +48,7 @@ function App() {
           }
           console.log(data);
           setConfigData(data || []);
+          setConfigLoading(false);
         } catch (error) {
           console.error("Error fetching logo data:", error.message);
         }
@@ -154,7 +155,7 @@ function App() {
                         {logo.verhouding || "Geen"}
                       </td>
                       <td>{logo.montage}</td>
-                      <td>{logo.prijs_schatting}</td>
+                      <td>€{logo.prijs_schatting},-</td>
                       <td>
                         <button
                           className={stl.dlBtn}
@@ -184,47 +185,34 @@ function App() {
               <thead>
                 <tr>
                   <th>Datum</th>
-                  <th>Naam</th>
-                  <th>Email</th>
-                  <th>Beschrijving</th>
-                  <th>Plaat Type</th>
-                  <th>Plaat Shape</th>
-                  <th>LED Color</th>
-                  <th>LED Type</th>
-                  <th>Langste Zijde</th>
-                  <th>Ratio</th>
-                  <th>Mounting</th>
-                  <th>Prijs Schatting</th>
-                  <th>Download</th>
+                  <th>Text</th>
+                  <th>Lettertype</th>
+                  <th>Opmerkingen</th>
+                  <th>Lengte</th>
+                  <th>Paneel Kleur</th>
+                  <th>Paneel Vorm</th>
+                  <th>Montage</th>
+                  <th>Kleur</th>
+                  <th>Prijs</th>
                 </tr>
               </thead>
               <tbody>
-                {logoData
+                {configData
                   .sort((a, b) => b.id - a.id)
                   .map((logo) => (
                     <tr key={logo.id}>
                       <td>{logo.datum.slice(0, 10)}</td>
-                      <td>{logo.naam}</td>
-                      <td>{logo.email}</td>
-                      <td>{logo.beschrijving}</td>
-                      <td>{logo.achterplaat_type}</td>
-                      <td>{logo.achterplaat_vorm}</td>
-                      <td>{logo.kleur_led}</td>
-                      <td>{logo.soort_led}</td>
-                      <td>{logo.langste_zijde}</td>
-                      <td>{logo.verhouding}</td>
-                      <td>{logo.montage}</td>
-                      <td>{logo.prijs_schatting}</td>
-                      <td>
-                        <button
-                          className={stl.dlBtn}
-                          onClick={() =>
-                            handleDownload(logo.file_format, logo.id)
-                          }
-                        >
-                          <FiDownload />
-                        </button>
+                      <td>{logo.text}</td>
+                      <td>{logo.lettertype}</td>
+                      <td className={!logo.opmerkingen ? stl.gray : ""}>
+                        {logo.opmerkingen || "Geen"}
                       </td>
+                      <td>{logo.lengte}cm</td>
+                      <td>{logo.achterpaneel_kleur}</td>
+                      <td>{logo.achterpaneel_vorm}</td>
+                      <td>{logo.montage_methode}</td>
+                      <td>{logo.kleur}</td>
+                      <td>€{logo.prijs},-</td>
                     </tr>
                   ))}
               </tbody>

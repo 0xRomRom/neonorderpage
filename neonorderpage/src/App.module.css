@@ -20,6 +20,7 @@ table {
   color: white;
   font-size: 12px;
   width: 50vw;
+  min-width: 1000px;
   margin: 0 auto;
   text-align: center;
   border: 1px solid rgb(30, 30, 30);
@@ -121,4 +122,8 @@ tbody tr td:nth-child(4) {
   .order {
     min-width: 23.5rem;
   }
+}
+
+.gray {
+  color: gray;
 }
