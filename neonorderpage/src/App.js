@@ -56,7 +56,7 @@ function App() {
 
       fetchConfigData();
     }
-  }, [activeTab]);
+  }, [activeTab, configData.length]);
 
   const handleDownload = async (fileFormat, id) => {
     let imgString = "";
@@ -185,7 +185,10 @@ function App() {
               <thead>
                 <tr>
                   <th>Datum</th>
-                  <th>Text</th>
+                  <th>Regel 1</th>
+                  <th>Regel 2</th>
+                  <th>Regel 3</th>
+                  <th>Regel 4</th>
                   <th>Lettertype</th>
                   <th>Opmerkingen</th>
                   <th>Lengte</th>
@@ -203,6 +206,15 @@ function App() {
                     <tr key={logo.id}>
                       <td>{logo.datum.slice(0, 10)}</td>
                       <td>{logo.text}</td>
+                      <td className={!logo.regel2 ? stl.gray : ""}>
+                        {logo.regel2 || "Leeg"}
+                      </td>
+                      <td className={!logo.regel3 ? stl.gray : ""}>
+                        {logo.regel3 || "Leeg"}
+                      </td>
+                      <td className={!logo.regel4 ? stl.gray : ""}>
+                        {logo.regel4 || "Leeg"}
+                      </td>
                       <td>{logo.lettertype}</td>
                       <td className={!logo.opmerkingen ? stl.gray : ""}>
                         {logo.opmerkingen || "Geen"}

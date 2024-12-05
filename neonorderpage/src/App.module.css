@@ -68,10 +68,6 @@ table button:hover {
   background-color: rgb(41, 41, 41);
 }
 
-tbody tr td:nth-child(4) {
-  min-width: 11rem;
-}
-
 .tabs {
   display: flex;
   justify-content: center;
