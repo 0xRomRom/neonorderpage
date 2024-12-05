@@ -40,7 +40,7 @@ function App() {
           const { data, error } = await supabase
             .from("textconfigurator")
             .select(
-              "id,datum,text,lettertype,kleur,lengte,achterpaneel_kleur,achterpaneel_vorm,montage_methode,opmerkingen,prijs"
+              "id,datum,text,lettertype,kleur,lengte,achterpaneel_kleur,achterpaneel_vorm,montage_methode,opmerkingen,prijs,regel2,regel3,regel4"
             );
 
           if (error) {
